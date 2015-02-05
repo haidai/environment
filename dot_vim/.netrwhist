@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/delver/Projects/deformable_ws/src/deformable_stack/deformable_reg/opengl'
+let g:netrw_dirhist_2='/Users/hainguyen/ros_catkin_ws/src/resource_retriever/test'
