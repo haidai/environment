@@ -5,6 +5,7 @@ export EDITOR='vim'
 export HGMERGE='meld'
 export PS1='\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%s)")\[\033[01;34m\]\$ \[\033[00m\]'
 export ROS_IP=`/sbin/ifconfig eth0 | grep "inet addr" | head -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 1`
+export ROS_MASTER_URI=http://$ROS_IP:11311
 
 alias ls="ls -FGksh --color=always"
 alias ..="cd .. && ls"

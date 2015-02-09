@@ -2,7 +2,7 @@ syntax enable
 set background=light
 "set background=dark
 colorscheme solarized
-set guifont=Monaco:h14
+"set guifont=Monaco:h14
 set textwidth=70
 
 let g:fullscreen_background="dark"
