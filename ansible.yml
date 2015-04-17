@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - git: repo=https://github.com/haidai/environment
+        dest=~/environment accept_hostkey=yes
+    - lineinfile: dest=~/.bashrc line="source ~/environment/haibashrc.sh"
+    - file: src=~/environment/dot_tmux.conf dest=~/.tmux.conf state=link
+    - file: src=~/environment/dot_vimrc dest=~/.vimrc state=link
+    - file: src=~/environment/dot_vim dest=~/.vim state=link
+
