@@ -9,6 +9,7 @@ sudo pip install ansible==1.8.2
 
 Call the Ansible playbook (tested using Vagrant):
 ```bash
+wget https://raw.githubusercontent.com/haidai/environment/master/ansible.yml
 ansible-playbook -i "localhost," -c local ansible.yml --ask-sudo-pass
 ```
 
