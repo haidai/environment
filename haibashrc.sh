@@ -39,21 +39,23 @@ else
     fi
 fi
 
-
 #Prefer interface specified
-if [ -z $ROS_IP ] ; then
-    export ROS_IP=`/sbin/ifconfig eth0 | grep "inet addr" | head -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 1`
+if [ `uname` == "Linux" ] ; then
+    export ROS_IP=`/sbin/ifconfig eth1 | grep "inet addr" | head -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 1`
+elif [ `uname` == "Darwin" ] ; then
+    export ROS_IP=`/sbin/ifconfig en0 | grep "inet " | awk '{print $2}'`
+fi
+
+#Fall back to addresses with 192 in it
+if [ `uname` == "Linux" ] ; then
+    if [ -z $ROS_IP ] ; then
+        export ROS_IP=`ip addr | grep 'state UP' -A2 | grep "inet " | awk '{print $2}' | cut -f1 -d'/' | grep "192" | cut -f1 -d' '`
+    fi
 fi
 
 #Fall back to dig
 if [ -z $ROS_IP ] ; then
     export ROS_IP=`dig +short $(hostname)`
-fi
-
-#Fall back to addresses with 192 in it
-if [ -z $ROS_IP ] ; then
-    echo "Failed to set ROS_IP with dig. Trying ip addr."
-    export ROS_IP=`ip addr | grep 'state UP' -A2 | grep "inet " | awk '{print $2}' | cut -f1 -d'/' | grep "192" | cut -f1 -d' '`
 fi
 
 #Fall back to any address
