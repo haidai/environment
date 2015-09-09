@@ -1,8 +1,10 @@
 source ~/environment/git-completion.bash
 
 function abs_path {
-  (cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$PWD" "${1##*/}")
+    eval path=$1
+    echo $path
 }
+#(cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$PWD" "${1##*/}")
 
 export SVN_EDITOR='vim'
 export EDITOR='vim'
