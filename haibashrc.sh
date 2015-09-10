@@ -1,10 +1,14 @@
 source ~/environment/git-completion.bash
 
-function abs_path {
-    eval path=$1
-    echo $path
-}
+#function abs_path {
+#    eval path=$1
+#    echo $path
+#}
 #(cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$PWD" "${1##*/}")
+
+function abs_path {
+    cd $1 && pwd
+}
 
 export SVN_EDITOR='vim'
 export EDITOR='vim'
@@ -20,7 +24,7 @@ alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} bran
 
 mkdir -p ~/.ssh
 mkdir -p ~/environment
-export DOCKER_DEV="-v $(abs_path ~/.ssh):/root/.ssh -v $(abs_path ~/environment):/root/environment -v $(abs_path ~/.bashrc):/root/.bashrc -v $(abs_path ~/.vimrc):/root/.vimrc"
+export DOCKER_DEV_BASE="--rm -v `abs_path ~/.ssh`:/root/.ssh -v `abs_path ~/environment`:/root/environment -v `abs_path ~`/.bashrc:/root/.bashrc -v  `abs_path ~`/.vimrc:/root/.vimrc"
 
 if [ `uname` == "Darwin" ] ; then
     alias v="mvim"
@@ -34,9 +38,6 @@ if [ `uname` == "Darwin" ] ; then
 else
     alias v="gvim"
     alias catkin_make_eclipse='cmake ../src/ -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_BUILD_TYPE=Debug'
-    if ! type "dig" > /dev/null; then
-        sudo apt-get install -y dnsutils
-    fi
 fi
 
 #Prefer interface specified
@@ -55,6 +56,9 @@ fi
 
 #Fall back to dig
 if [ -z $ROS_IP ] ; then
+    if ! type "dig" > /dev/null; then
+        sudo apt-get install -y dnsutils
+    fi
     export ROS_IP=`dig +short $(hostname)`
 fi
 
@@ -71,3 +75,9 @@ else
 fi
 
 export ROS_MASTER_URI=http://$ROS_IP:11311
+
+# Use it like this
+# make run_x86 VERSION='develop' ARGS="$(docker_dev develop_x86_gizmo/src/)"
+function docker_dev {
+    echo "-v `abs_path $1`:/root/gizmo/src $DOCKER_DEV_BASE"
+}
