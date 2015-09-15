@@ -24,11 +24,13 @@ alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} bran
 
 mkdir -p ~/.ssh
 mkdir -p ~/environment
-export DOCKER_DEV_BASE="--rm -v `abs_path ~/.ssh`:/root/.ssh -v `abs_path ~/environment`:/root/environment -v `abs_path ~`/.bashrc:/root/.bashrc -v  `abs_path ~`/.vimrc:/root/.vimrc"
+export DOCKER_DEV_BASE="--rm -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
 
 if [ `uname` == "Darwin" ] ; then
     alias v="mvim"
     alias catkin_make_xcode='cmake ../src/ -G Xcode -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel'
+    alias docker_master="export ROS_MASTER_URI=http://192.168.59.103:11311"
+
     export ANSIBLE_HOSTS=~/ansible_hosts
     export VIM_APP_DIR=/Applications/Custom
     export DOCKER_HOST=tcp://192.168.59.103:2376
@@ -69,9 +71,13 @@ if [ -z $ROS_IP ] ; then
 fi
 
 if [ -z $ROS_IP ] ; then
-    echo "ROS_IP is empty!"
+    if [[ $- =~ "i" ]] ; then
+        echo "ROS_IP is empty!"
+    fi
 else
-    echo "ROS_IP is $ROS_IP"
+    if [[ $- =~ "i" ]] ; then
+        echo "ROS_IP is $ROS_IP"
+    fi
 fi
 
 export ROS_MASTER_URI=http://$ROS_IP:11311
