@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    branch: mac
+    branch: master
   tasks:
     - git: repo=https://github.com/haidai/environment
         dest=~/environment accept_hostkey=yes version={{branch}}
