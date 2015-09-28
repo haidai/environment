@@ -6,9 +6,7 @@ syntax enable
 set background=dark
 let g:solarized_termcolors = 256
 colorscheme solarized
-
-set guifont=Monaco:h14
-set textwidth=70
+set guifont=Monospace\ 14
 
 " Enable tab shortcut keys
 :nmap <C-S-n> :tabnew<cr>
