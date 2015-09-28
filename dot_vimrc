@@ -1,40 +1,24 @@
+set nocompatible
+execute pathogen#infect()
+
+set number
 syntax enable
 set background=dark
-"set background=dark
+let g:solarized_termcolors = 256
 colorscheme solarized
 set guifont=Monospace\ 14
-set textwidth=70
 
-let g:fullscreen_background="dark"
-let g:fullscreen_colorscheme="solarized"
-"let g:fullscreen_font = "Monaco:h14"
-
-let g:normal_colorscheme = "solarized"
-let g:normal_background = "light"
-"let g:normal_font="Monaco:h14"
-
+" Enable tab shortcut keys
 :nmap <C-S-n> :tabnew<cr>
 :nmap <C-S-k> :tabclose<cr> 
 :nmap <C-g> :tab split<cr><C-]>
 :nmap <C-l> :Explore<cr>
 
-" Roslaunch
-autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" General
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible " get out of horrible vi-compatible mode
-filetype on " detect the type of file
-set history=1000 " How many lines of history to remember
-set cf " enable error files and error jumping
-set clipboard+=unnamed " turns out I do like is sharing windows clipboard
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,#,- " none of these should be word dividers, so make them not be
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Visual Cues
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showmatch " show matching brackets
 set mat=5 " how many tenths of a second to blink matching brackets for
 set incsearch " BUT do highlight as you type you search phrase
@@ -46,9 +30,7 @@ set noerrorbells " no noises
 set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [LINE=%04l,COL=%04v][%p%%]\ [LEN=%L]
 set laststatus=2 " always show the status line
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Text Formatting/Layout
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fo=tcrqn " See Help (complex)
 set ai " autoindent
 "set si " smartindent 
@@ -60,54 +42,3 @@ set shiftwidth=4 " unify
 set smarttab " use tabs at the start of a line, spaces elsewhere
 set expandtab
 set et
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Matchit
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let b:match_ignorecase = 1
-
-
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  " File Explorer
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  let g:explVertical=1 " should I split verticially
-"  let g:explWinSize=35 " width of 35 pixels
-"  
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  " Win Manager
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  let g:winManagerWidth=35 " How wide should it be( pixels)
-"  let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer' " What windows should it
-"  
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  " Minibuf
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  let g:miniBufExplTabWrap = 1 " make tabs show complete (no broken on two lines)
-"  let g:miniBufExplModSelTarget = 1
-"  
-"  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  "" Custom Functions
-"  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  "" Select range, then hit :SuperRetab($width) - by p0g and FallingCow
-"  ""function! SuperRetab(width) range
-"  ""	silent! exe a:firstline . ',' . a:lastline . 's/\v%(^ *)@<= {'. a:width .'}/\t/g'
-"  ""endfunction
-"  "
-"  "noremap j gj 
-"  "noremap k gk
-"  
-"  set noerrorbells
-"  set vb
-"  set t_vb=
-"  
-"  syntax enable
-"  filetype indent on
-"  filetype plugin on
-"  set sw=4
-"  map <f2> :w\|!python %<cr>
-"  
-"  
-"  highlight Folded ctermbg=none ctermfg=darkgreen
-"  set foldmethod=indent
-"  let g:languagetool_jar='$HOME/LanguageTool-2.3/languagetool-standalone.jar'
-
