@@ -2,16 +2,16 @@ syntax enable
 set background=dark
 "set background=dark
 colorscheme solarized
-"set guifont=Monaco:h14
+set guifont=Monospace\ 14
 set textwidth=70
 
 let g:fullscreen_background="dark"
 let g:fullscreen_colorscheme="solarized"
-let g:fullscreen_font = "Monaco:h14"
+"let g:fullscreen_font = "Monaco:h14"
 
 let g:normal_colorscheme = "solarized"
 let g:normal_background = "light"
-let g:normal_font="Monaco:h14"
+"let g:normal_font="Monaco:h14"
 
 :nmap <C-S-n> :tabnew<cr>
 :nmap <C-S-k> :tabclose<cr> 
