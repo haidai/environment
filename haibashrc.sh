@@ -40,6 +40,7 @@ if [ `uname` == "Darwin" ] ; then
 else
     alias v="gvim"
     alias catkin_make_eclipse='cmake ../src/ -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_BUILD_TYPE=Debug'
+    export TERM=xterm-256color
 fi
 
 #Prefer interface specified
