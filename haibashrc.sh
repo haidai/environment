@@ -15,19 +15,13 @@ export EDITOR='vim'
 export HGMERGE='meld'
 export PS1='\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%s)")\[\033[01;34m\]\$ \[\033[00m\]'
 
-
-alias ls="ls -FGksh"
-alias ..="cd .. && ls"
-alias python='python -u'
-alias sim="export ROBOT=sim"
-alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
-
 mkdir -p ~/.ssh
 mkdir -p ~/environment
 #Use it like this: make run_x86 VERSION='develop' ARGS='$(DOCKER_DEV_BASE)'
 export DOCKER_DEV_BASE="--rm -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
 
 if [ `uname` == "Darwin" ] ; then
+    alias ls="ls -FGksh"
     alias v="mvim"
     alias catkin_make_xcode='cmake ../src/ -G Xcode -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel'
     alias docker_master="export ROS_MASTER_URI=http://192.168.59.103:11311"
@@ -39,10 +33,16 @@ if [ `uname` == "Darwin" ] ; then
     export DOCKER_TLS_VERIFY=1
     source ~/ros_catkin_ws/install_isolated/setup.bash
 else
+    alias ls="ls -FGksh --color=always"
     alias v="gvim"
     alias catkin_make_eclipse='cmake ../src/ -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_BUILD_TYPE=Debug'
     export TERM=xterm-256color
 fi
+
+alias python='python -u'
+alias sim="export ROBOT=sim"
+alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
+alias ..="cd .. && ls"
 
 #Prefer interface specified
 if [ `uname` == "Linux" ] ; then
