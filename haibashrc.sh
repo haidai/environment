@@ -18,24 +18,27 @@ export PS1='\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%
 mkdir -p ~/.ssh
 mkdir -p ~/environment
 #Use it like this: make run_x86 VERSION='develop' ARGS='$(DOCKER_DEV_BASE)'
-export DOCKER_DEV_BASE="--rm -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
+export DOCKER_DEV_BASE="--rm -v $HOME/.gitconfig:/root/.gitconfig -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
 
+export DOCKER_IP=192.168.59.103
 if [ `uname` == "Darwin" ] ; then
+    export ANSIBLE_HOSTS=~/ansible_hosts
+    export VIM_APP_DIR=/Applications/Custom
+    export DOCKER_HOST=tcp://$DOCKER_IP:2376
+    export DOCKER_CERT_PATH=$(abs_path ~/.boot2docker/certs/boot2docker-vm)
+    export DOCKER_TLS_VERIFY=1
+
     alias ls="ls -FGksh"
     alias v="mvim"
     alias catkin_make_xcode='cmake ../src/ -G Xcode -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel'
-    alias docker_master="export ROS_MASTER_URI=http://192.168.59.103:11311"
+    alias docker_master="export ROS_MASTER_URI=http://$DOCKER_IP:11311"
 
-    export ANSIBLE_HOSTS=~/ansible_hosts
-    export VIM_APP_DIR=/Applications/Custom
-    export DOCKER_HOST=tcp://192.168.59.103:2376
-    export DOCKER_CERT_PATH=$(abs_path ~/.boot2docker/certs/boot2docker-vm)
-    export DOCKER_TLS_VERIFY=1
     source ~/ros_catkin_ws/install_isolated/setup.bash
 else
     alias ls="ls -FGksh --color=always"
     alias v="gvim"
     alias catkin_make_eclipse='cmake ../src/ -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_BUILD_TYPE=Debug'
+    alias docker_notebook="ipython notebook --ip=$DOCKER_IP"
     export TERM=xterm-256color
 fi
 
@@ -43,6 +46,7 @@ alias python='python -u'
 alias sim="export ROBOT=sim"
 alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
 alias ..="cd .. && ls"
+alias run_x86_docker_base="make run_x86 VERSION='develop' ARGS='$DOCKER_DEV_BASE'"
 
 #Prefer interface specified
 if [ `uname` == "Linux" ] ; then
