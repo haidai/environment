@@ -95,3 +95,7 @@ export ROS_MASTER_URI=http://$ROS_IP:11311
 function docker_dev {
     echo "-v `abs_path $1`:/root/gizmo/src $DOCKER_DEV_BASE"
 }
+
+function ros_master {
+    export ROS_MASTER_URI="http://$1:11311"
+}
