@@ -26,6 +26,7 @@ mkdir -p ~/.ssh
 mkdir -p ~/environment
 #Use it like this: make run_x86 VERSION='develop' ARGS='$(DOCKER_DEV_BASE)'
 export DOCKER_DEV_BASE="--rm -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
+export QT_X11_NO_MITSHM=1
 
 if [ `uname` == "Darwin" ] ; then
     alias v="mvim"
