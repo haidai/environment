@@ -48,6 +48,7 @@ alias sim="export ROBOT=sim"
 alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
 alias ..="cd .. && ls"
 alias run_x86_docker_base="make run_x86 VERSION='develop' ARGS='$DOCKER_DEV_BASE'"
+alias run_arm_docker_base="make run_arm VERSION='develop' ARGS='$DOCKER_DEV_BASE'"
 
 #Prefer interface specified
 if [ `uname` == "Linux" ] ; then
