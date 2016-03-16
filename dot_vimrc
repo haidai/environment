@@ -1,12 +1,16 @@
-set nocompatible
 execute pathogen#infect()
+execute pathogen#helptags()
+
+" Enables flake8
+filetype plugin indent on
+set nocompatible
 
 set number
 syntax enable
 set background=dark
 let g:solarized_termcolors = 256
 colorscheme solarized
-set guifont=Monospace\ 14
+set guifont=Monospace\ 10
 
 " Enable tab shortcut keys
 :nmap <C-S-n> :tabnew<cr>
@@ -42,3 +46,12 @@ set shiftwidth=4 " unify
 set smarttab " use tabs at the start of a line, spaces elsewhere
 set expandtab
 set et
+
+" Pymode
+let g:pymode_lint = 1
+"let g:pymode_lint_on_write = 1
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8']
+autocmd FileType python map <buffer> <F3> :PymodeLintAuto <CR>
+match ErrorMsg '\s\+$'
