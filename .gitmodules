@@ -1,3 +1,9 @@
 [submodule "dot_vim/bundle/vim-colors-solarized"]
 	path = dot_vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "dot_vim/bundle/vim-flake8"]
+	path = dot_vim/bundle/vim-flake8
+	url = git@github.com:nvie/vim-flake8.git
+[submodule "dot_vim/bundle/python-mode"]
+	path = dot_vim/bundle/python-mode
+	url = git@github.com:klen/python-mode.git
