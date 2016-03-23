@@ -50,8 +50,13 @@ set et
 " Pymode
 let g:pymode_lint = 1
 "let g:pymode_lint_on_write = 1
-let g:pymode_lint_on_fly = 1
+"let g:pymode_lint_on_fly = 1
 let g:pymode_lint_message = 1
 let g:pymode_lint_checkers = ['pyflakes', 'pep8']
 autocmd FileType python map <buffer> <F3> :PymodeLintAuto <CR>
 match ErrorMsg '\s\+$'
+
+" Rope completion is really slow and annoying, disable it
+let g:pymode_rope_completion = 0
+" Don't need doc display
+let g:pymode_doc = 0
