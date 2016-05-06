@@ -13,7 +13,18 @@ function abs_path {
 export SVN_EDITOR='vim'
 export EDITOR='vim'
 export HGMERGE='meld'
-export PS1='\[\033[01;32m\]\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%s)")\[\033[01;34m\]\$ \[\033[00m\]'
+# http://stackoverflow.com/questions/16715103/bash-prompt-with-last-exit-code
+#export PROMPT_COMMAND=__prompt_command
+function __exit_color() {
+    local EXIT="$?"
+    if [ $EXIT == 0 ]; then
+        printf -- "\033[01;32m"
+    else
+        printf -- "\033[01;31m"
+    fi
+}
+
+export PS1='$(__exit_color)\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%s)")\[\033[01;34m\]\$ \[\033[00m\]'
 
 mkdir -p ~/.ssh
 mkdir -p ~/environment
