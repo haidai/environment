@@ -33,6 +33,8 @@ export DOCKER_DEV_BASE="--rm -v $HOME/.gitconfig:/root/.gitconfig -v $HOME/.tmux
 export QT_X11_NO_MITSHM=1
 
 export DOCKER_IP=192.168.59.103
+alias killgiz='rkill -9 $(pgrep -f bin/gizmo)'
+
 if [ `uname` == "Darwin" ] ; then
     export ANSIBLE_HOSTS=~/ansible_hosts
     export VIM_APP_DIR=/Applications/Custom
