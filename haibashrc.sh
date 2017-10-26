@@ -21,7 +21,6 @@ __prompt_command() {
     local green='\[\e[0;32m\]'
     local color=""
 
-
     if [ $EXIT == 0 ]; then
         color="${green}"
     else
