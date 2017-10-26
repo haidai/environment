@@ -1,78 +1,47 @@
 source ~/environment/git-completion.bash
 
-#function abs_path {
-#    eval path=$1
-#    echo $path
-#}
-#(cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$PWD" "${1##*/}")
-
-function abs_path {
-    cd $1 && pwd
+function timer_start {
+  timer=${timer:-$SECONDS}
 }
 
-export SVN_EDITOR='vim'
-export EDITOR='vim'
-export HGMERGE='meld'
-# http://stackoverflow.com/questions/16715103/bash-prompt-with-last-exit-code
-#export PROMPT_COMMAND=__prompt_command
-function __exit_color() {
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+trap 'timer_start' DEBUG
+
+
+# https://stackoverflow.com/questions/16715103/bash-prompt-with-last-exit-code
+PROMPT_COMMAND=__prompt_command
+__prompt_command() {
     local EXIT="$?"
+    timer_stop
+
+    local red='\[\e[0;31m\]'
+    local green='\[\e[0;32m\]'
+    local color=""
+
+
     if [ $EXIT == 0 ]; then
-        printf -- "\033[01;32m"
+        color="${green}"
     else
-        printf -- "\033[01;31m"
+        color+="${red}"
     fi
+
+    PS1="\n${color}"'\u@\h \@ \[\033[0;31m\]$(__git_ps1 "(%s)") \[\033[01;34m\]\w \n'
+    PS1+="${color}"'[\!] ${timer_show}s \[\033[00m\]$ '
 }
 
-export PS1='$(__exit_color)\u@\h \[\033[01;34m\]\W \[\033[0;31m\]$(__git_ps1 "(%s)")\[\033[01;34m\]\$ \[\033[00m\]'
-
-mkdir -p ~/.ssh
-mkdir -p ~/environment
-#Use it like this: make run_x86 VERSION='develop' ARGS='$(DOCKER_DEV_BASE)'
-export DOCKER_DEV_BASE="--rm -v $HOME/.gitconfig:/root/.gitconfig -v $HOME/.tmux.conf:/root/.tmux.conf -v $HOME/.bash_profile:/root/.bash_profile -v $HOME/.ssh:/root/.ssh -v $HOME/environment:/root/environment -v $HOME/.bashrc:/root/.bashrc -v $HOME/.vim:/root/.vim -v $HOME/.vimrc:/root/.vimrc"
-export QT_X11_NO_MITSHM=1
-
-export DOCKER_IP=192.168.59.103
-if [ `uname` == "Darwin" ] ; then
-    export ANSIBLE_HOSTS=~/ansible_hosts
-    export VIM_APP_DIR=/Applications/Custom
-    export DOCKER_HOST=tcp://$DOCKER_IP:2376
-    export DOCKER_CERT_PATH=$(abs_path ~/.boot2docker/certs/boot2docker-vm)
-    export DOCKER_TLS_VERIFY=1
-
-    alias ls="ls -FGksh"
-    alias v="mvim"
-    alias catkin_make_xcode='cmake ../src/ -G Xcode -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel'
-    alias docker_master="export ROS_MASTER_URI=http://$DOCKER_IP:11311"
-
-    source ~/ros_catkin_ws/install_isolated/setup.bash
-else
-    alias ls="ls -FGksh --color=always"
-    alias v="gvim"
-    alias catkin_make_eclipse='cmake ../src/ -G"Eclipse CDT4 - Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel -DCMAKE_BUILD_TYPE=Debug'
-    alias docker_notebook="ipython notebook --ip=$DOCKER_IP"
-    export TERM=xterm-256color
-fi
-
-alias python='python -u'
-alias sim="export ROBOT=sim"
-alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
-alias ..="cd .. && ls"
-alias run_x86_docker_base="make run_x86 VERSION='develop' ARGS='$DOCKER_DEV_BASE'"
-alias run_arm_docker_base="make run_arm VERSION='develop' ARGS='$DOCKER_DEV_BASE'"
 
 #Prefer interface specified
 if [ `uname` == "Linux" ] ; then
     export ROS_IP=`/sbin/ifconfig eth1 | grep "inet addr" | head -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 1`
-elif [ `uname` == "Darwin" ] ; then
-    export ROS_IP=`/sbin/ifconfig en0 | grep "inet " | awk '{print $2}'`
-fi
-
-#Fall back to addresses with 192 in it
-if [ `uname` == "Linux" ] ; then
+    #Fall back to addresses with 192 in it
     if [ -z $ROS_IP ] ; then
         export ROS_IP=`ip addr | grep 'state UP' -A2 | grep "inet " | awk '{print $2}' | cut -f1 -d'/' | grep "192" | cut -f1 -d' '`
     fi
+elif [ `uname` == "Darwin" ] ; then
+    export ROS_IP=`/sbin/ifconfig en0 | grep "inet " | awk '{print $2}'`
 fi
 
 #Fall back to dig
@@ -99,14 +68,27 @@ else
     fi
 fi
 
-export ROS_MASTER_URI=http://$ROS_IP:11311
 
-# Use it like this
-# make run_x86 VERSION='develop' ARGS="$(docker_dev develop_x86_gizmo/src/)"
-function docker_dev {
-    echo "-v `abs_path $1`:/root/gizmo/src $DOCKER_DEV_BASE"
-}
+export ROS_MASTER_URI=http://$ROS_IP:11311
+export SVN_EDITOR='vim'
+export EDITOR='vim'
+export HGMERGE='meld'
 
 function ros_master {
     export ROS_MASTER_URI="http://$1:11311"
 }
+
+if [ `uname` == "Darwin" ] ; then
+    alias ls="ls -FGksh"
+    alias v="mvim"
+    alias catkin_make_xcode='cmake ../src/ -G Xcode -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel'
+else
+    alias ls="ls -FGksh --color=always"
+    alias v="gvim"
+    export TERM=xterm-256color
+fi
+
+alias killgiz='rkill -9 $(pgrep -f bin/gizmo)'
+alias python='python -u'
+alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
+alias ..="cd .. && ls"
