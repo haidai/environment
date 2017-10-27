@@ -15,11 +15,11 @@ syntax enable
 set background=dark
 let g:solarized_termcolors = 256
 colorscheme solarized
-set guifont=Menlo\ Regular:h14
+set guifont=Monospace\ 12
 
 " Enable tab shortcut keys
 :nmap <C-S-n> :tabnew<cr>
-:nmap <C-S-k> :tabclose<cr> 
+:nmap <C-S-k> :tabclose<cr>
 :nmap <C-g> :tab split<cr><C-]>
 :nmap <C-l> :Explore<cr>
 
@@ -42,12 +42,12 @@ set laststatus=2 " always show the status line
 "" Text Formatting/Layout
 set fo=tcrqn " See Help (complex)
 set ai " autoindent
-"set si " smartindent 
+"set si " smartindent
 "set cindent " do c-style indenting
 set tabstop=4 " tab spacing (settings below are just to unify it)
 set softtabstop=4 " unify
-set shiftwidth=4 " unify 
-"set nowrap " do not wrap lines  
+set shiftwidth=4 " unify
+"set nowrap " do not wrap lines
 set smarttab " use tabs at the start of a line, spaces elsewhere
 set expandtab
 set et
@@ -67,4 +67,6 @@ let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 " Don't need doc display
 let g:pymode_doc = 0
+set backupdir=~/.vim,/tmp,.
+set directory=~/.vim,/tmp,.
 
