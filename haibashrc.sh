@@ -91,3 +91,5 @@ alias killgiz='rkill -9 $(pgrep -f bin/gizmo)'
 alias python='python -u'
 alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
 alias ..="cd .. && ls"
+alias ...="cd ../../ && ls"
+alias ....="cd ../../../ && ls"
