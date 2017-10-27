@@ -87,7 +87,9 @@ else
     export TERM=xterm-256color
 fi
 
-alias killgiz='rkill -9 $(pgrep -f bin/gizmo)'
+alias gizlog='sudo tail -f /var/log/upstart/gizmo.log'
+alias gizkill='rkill -9 $(pgrep -f bin/gizmo)'
+alias giz='sudo service gizmo'
 alias python='python -u'
 alias git_reveal='find . -type d -name ".git" -print -exec git --git-dir={} branch \;'
 alias ..="cd .. && ls"
