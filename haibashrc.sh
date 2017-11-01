@@ -87,6 +87,8 @@ else
     export TERM=xterm-256color
 fi
 
+alias docker_clean_containers="docker rmi $(docker images | grep '^<none>' | awk '{print $3}')"
+alias docker_clean_images="docker rm $(docker ps -a -q)"
 alias gizlog='sudo tail -f /var/log/upstart/gizmo.log'
 alias gizkill='sudo rkill -9 $(pgrep -f bin/gizmo)'
 alias giz='sudo service gizmo'
