@@ -9,3 +9,4 @@
     - file: src=~/environment/dot_tmux.conf dest=~/.tmux.conf state=link
     - file: src=~/environment/dot_vimrc dest=~/.vimrc state=link
     - file: src=~/environment/dot_vim dest=~/.vim state=link
+    - file: src=~/environment/dot_gitconfig dest=~/.gitconfig state=link
